@@ -13,7 +13,7 @@ const CustomButton = React.forwardRef(({ className, variant = 'primary', size = 
   const sizes = {
     default: 'h-10 px-4 py-2',
     sm: 'h-8 px-3 text-xs',
-    lg: 'h-12 px-8 text-lg',
+    lg: 'h-12 px-8 text-sm',
     icon: 'h-10 w-10',
   };
 
@@ -22,7 +22,7 @@ const CustomButton = React.forwardRef(({ className, variant = 'primary', size = 
       ref={ref}
       disabled={loading || props.disabled}
       className={cn(
-        "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
         variants[variant],
         sizes[size],
         className
@@ -38,3 +38,4 @@ const CustomButton = React.forwardRef(({ className, variant = 'primary', size = 
 CustomButton.displayName = "CustomButton";
 
 export default CustomButton;
+

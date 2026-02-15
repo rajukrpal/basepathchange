@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signupSchema } from '@/validation/schemas';
 import FormProvider from '@/form/FormProvider';
 import TextField from '@/form/TextField';
 import PasswordField from '@/form/PasswordField';
@@ -8,9 +10,10 @@ import AuthLayout from '@/components/common/AuthLayout';
 import { User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const SignupPage = () => {
+const Signup = () => {
     const navigate = useNavigate();
     const methods = useForm({
+        resolver: yupResolver(signupSchema),
         defaultValues: { fullName: '', email: '', password: '' },
     });
 
@@ -33,7 +36,7 @@ const SignupPage = () => {
             subtitle="Join thousands of developers managing their project paths efficiently."
         >
             <div className="mb-6 xl:mb-8 text-center lg:text-left">
-                <h1 className="text-xl xl:text-2xl font-black text-gray-900 tracking-tight">Create Account</h1>
+                <h1 className="text-lg xl:text-xl font-semibold text-gray-900 tracking-tight">Create Account</h1>
                 <p className="mt-1 text-xs xl:text-sm text-gray-500 font-medium">
                     Get started with your free account today.
                 </p>
@@ -45,19 +48,19 @@ const SignupPage = () => {
                         name="fullName"
                         label="Full Name"
                         placeholder="Johnny Depp"
-                        prefix={<User className="h-4 w-4 text-gray-400" />}
+                        prefix={<User className="h-5 w-5" />}
                     />
                     <TextField
                         name="email"
                         label="Email Address"
                         placeholder="name@company.com"
-                        prefix={<Mail className="h-4 w-4 text-gray-400" />}
+                        prefix={<Mail className="h-5 w-5" />}
                     />
                     <PasswordField
                         name="password"
                         label="Password"
                         placeholder="••••••••"
-                        prefix={<Lock className="h-4 w-4 text-gray-400" />}
+                        prefix={<Lock className="h-5 w-5" />}
                     />
                 </div>
 
@@ -70,7 +73,7 @@ const SignupPage = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <span className="ml-2 text-[10px] xl:text-xs font-bold text-gray-400">
+                        <span className="ml-2 text-[10px] xl:text-xs font-semibold text-gray-400">
                             I agree to the <Link to="/terms" className="text-[#F97316]">Terms</Link> and <Link to="/privacy" className="text-[#F97316]">Privacy Policy</Link>
                         </span>
                     </label>
@@ -78,7 +81,7 @@ const SignupPage = () => {
 
                 <CustomButton
                     type="submit"
-                    className="w-full !h-[44px] xl:!h-[48px] rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-xs xl:text-sm font-bold text-white shadow-lg active:scale-[0.98] transition-all group"
+                    className="w-full !h-[44px] md:!h-[52px] rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-xs xl:text-sm font-semibold text-white shadow-lg active:scale-[0.98] transition-all group"
                     loading={isSubmitting}
                 >
                     <span>Create Free Account</span>
@@ -86,11 +89,12 @@ const SignupPage = () => {
                 </CustomButton>
 
                 <p className="mt-4 text-center text-[10px] xl:text-xs font-medium text-gray-400">
-                    Already have an account? <Link to="/login" className="text-[#F97316] font-bold">Sign In</Link>
+                    Already have an account? <Link to="/login" className="text-[#F97316] font-semibold">Sign In</Link>
                 </p>
             </FormProvider>
         </AuthLayout>
     );
 };
 
-export default SignupPage;
+export default Signup;
+

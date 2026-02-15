@@ -18,11 +18,11 @@ const PasswordField = ({ name, placeholder = '', label, className, prefix = null
         return (
           <div className="flex flex-col gap-1.5 sm:gap-2">
             {label && (
-              <label className="text-sm font-bold text-gray-700 tracking-tight">
+              <label className="text-sm font-semibold text-gray-700 tracking-tight">
                 {label}
               </label>
             )}
-            <FormItem className="relative">
+            <FormItem className="relative space-y-0">
                 <FormControl>
                   <Input
                     {...field}
@@ -32,12 +32,12 @@ const PasswordField = ({ name, placeholder = '', label, className, prefix = null
                     required
                     placeholder={placeholder}
                     className={cn(
-                      'h-[42px] md:h-[48px] rounded-[10px] bg-white px-4 md:px-5 text-xs md:text-sm font-medium text-black placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-offset-0',
+                      'h-[44px] md:h-[52px] rounded-xl bg-white px-4 md:px-5 text-sm md:text-base font-medium text-black placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-offset-0 border-gray-200 transition-all',
                       fieldError?.message
-                        ? 'text-red-500 focus-visible:ring-red-500'
+                        ? 'border-red-500 text-red-500 focus-visible:ring-red-500'
                         : 'focus-visible:border-[#F97316] focus-visible:ring-[#F97316] disabled:text-[#969696f2]',
-                      prefix ? 'pl-[40px] md:pl-[48px]' : '',
-                      'pr-[40px] md:pr-[48px]',
+                      prefix ? 'pl-11 md:pl-12' : '',
+                      'pr-11 md:pr-12',
                       className
                     )}
                     {...other}
@@ -46,7 +46,7 @@ const PasswordField = ({ name, placeholder = '', label, className, prefix = null
                 {prefix && (
                   <div
                     className={cn(
-                      'absolute flex items-center left-[16px] sm:left-[20px] top-1/2 -translate-y-1/2'
+                      'absolute flex items-center justify-center left-3 md:left-4 inset-y-0 pointer-events-none text-gray-400 transition-colors'
                     )}
                   >
                     {prefix}
@@ -54,14 +54,14 @@ const PasswordField = ({ name, placeholder = '', label, className, prefix = null
                 )}
                 <div
                   className={cn(
-                    'absolute flex items-center cursor-pointer right-[16px] sm:right-[20px] top-1/2 -translate-y-1/2'
+                    'absolute flex items-center justify-center cursor-pointer right-3 md:right-4 inset-y-0'
                   )}
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <Eye className="h-4 w-4 md:h-5 md:w-5 text-gray-400 hover:text-[#F97316] transition-colors" />
                   ) : (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <EyeOff className="h-4 w-4 md:h-5 md:w-5 text-gray-400 hover:text-[#F97316] transition-colors" />
                   )}
                 </div>
               </FormItem>
@@ -78,4 +78,5 @@ const PasswordField = ({ name, placeholder = '', label, className, prefix = null
 };
 
 export default PasswordField;
+
 

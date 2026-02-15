@@ -1,12 +1,14 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "./assets/scss/style.scss";
 @import "tw-animate-css";
-
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Registering Poppins as the default sans font */
+  --font-poppins: "Poppins", sans-serif;
+  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -118,11 +120,42 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply font-poppins antialiased;
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: var(--font-sans);
+    font-size: 13px;
+  }
+  button {
+    cursor: pointer;
   }
 }
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .scrollbar-none {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    overscroll-behavior: contain !important;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
+/* Force hide scrollbars globally if needed, effectively removing the 'gangat' */
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+

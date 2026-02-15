@@ -11,7 +11,7 @@ import { LOGIN_IMAGE } from '@/lib/images';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const Login = () => {
     const navigate = useNavigate();
     const methods = useForm({
         resolver: yupResolver(loginSchema),
@@ -30,7 +30,10 @@ const LoginPage = () => {
         console.log('Login data:', data);
         return new Promise((resolve) => {
             setTimeout(() => {
-                navigate('/');
+                // Generate a random token
+                const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
+                localStorage.setItem('token', token);
+                navigate('/dashboard');
                 resolve();
             }, 2000);
         });
@@ -43,7 +46,7 @@ const LoginPage = () => {
             subtitle="Unified platform for automated deployment and path validation."
         >
             <div className="mb-6 xl:mb-8 text-center lg:text-left">
-                <h1 className="text-xl xl:text-2xl font-black text-gray-900 tracking-tight">Welcome Back</h1>
+                <h1 className="text-lg xl:text-xl font-semibold text-gray-900 tracking-tight">Welcome Back</h1>
                 <p className="mt-1 text-xs xl:text-sm text-gray-500 font-medium">
                     Please sign in to access your dashboard.
                 </p>
@@ -55,14 +58,14 @@ const LoginPage = () => {
                         name="email"
                         label="Email"
                         placeholder="name@company.com"
-                        prefix={<Mail className="h-4 w-4 text-gray-400" />}
+                        prefix={<Mail className="h-5 w-5" />}
                     />
 
                     <PasswordField
                         name="password"
                         label="Password"
                         placeholder="••••••••"
-                        prefix={<Lock className="h-4 w-4 text-gray-400" />}
+                        prefix={<Lock className="h-5 w-5" />}
                     />
                 </div>
 
@@ -80,17 +83,17 @@ const LoginPage = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <span className="ml-2 text-[10px] xl:text-xs font-bold text-gray-400 group-hover:text-gray-900">Keep me signed in</span>
+                        <span className="ml-2 text-[10px] xl:text-xs font-semibold text-gray-400 group-hover:text-gray-900">Keep me signed in</span>
                     </label>
                     
-                    <Link to="/forgot-password" size="sm" className="text-[10px] xl:text-xs font-bold text-[#F97316] hover:underline underline-offset-4">
+                    <Link to="/forgot-password" size="sm" className="text-[10px] xl:text-xs font-semibold text-[#F97316] hover:underline underline-offset-4">
                         Forgot password?
                     </Link>
                 </div>
 
                 <CustomButton
                     type="submit"
-                    className="w-full !h-[44px] xl:!h-[48px] rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-xs xl:text-sm font-bold text-white shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all group"
+                    className="w-full !h-[44px] md:!h-[52px] rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-xs xl:text-sm font-semibold text-white shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all group"
                     loading={isSubmitting}
                 >
                     <span>Sign In</span>
@@ -101,28 +104,29 @@ const LoginPage = () => {
                     <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-t border-gray-100"></div>
                     </div>
-                    <div className="relative flex justify-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-300">
+                    <div className="relative flex justify-center text-[9px] font-semibold uppercase tracking-[0.2em] text-gray-300">
                         <span className="bg-white px-3">Or continue with</span>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                    <button type="button" className="flex items-center justify-center h-10 rounded-lg border border-gray-100 bg-gray-50/50 text-[10px] xl:text-xs font-bold text-gray-600 hover:bg-white transition-all">
+                    <button type="button" className="flex items-center justify-center h-10 rounded-lg border border-gray-100 bg-gray-50/50 text-[10px] xl:text-xs font-semibold text-gray-600 hover:bg-white transition-all">
                         <img src="https://www.svgrepo.com/show/355037/google.svg" alt="G" className="mr-2 h-3.5 w-3.5" />
                         Google
                     </button>
-                    <button type="button" className="flex items-center justify-center h-10 rounded-lg border border-gray-100 bg-gray-50/50 text-[10px] xl:text-xs font-bold text-gray-600 hover:bg-white transition-all">
+                    <button type="button" className="flex items-center justify-center h-10 rounded-lg border border-gray-100 bg-gray-50/50 text-[10px] xl:text-xs font-semibold text-gray-600 hover:bg-white transition-all">
                         <img src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="L" className="mr-2 h-3.5 w-3.5" />
                         LinkedIn
                     </button>
                 </div>
 
                 <p className="mt-4 text-center text-[10px] xl:text-xs font-medium text-gray-400">
-                    New here? <Link to="/signup" className="text-[#F97316] font-bold">Create an account</Link>
+                    New here? <Link to="/signup" className="text-[#F97316] font-semibold">Create an account</Link>
                 </p>
             </FormProvider>
         </AuthLayout>
     );
 };
 
-export default LoginPage;
+export default Login;
+

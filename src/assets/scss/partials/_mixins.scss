@@ -1,0 +1,11 @@
+@mixin font-face($name, $weight, $style, $file) {
+  @font-face {
+    font-family: "#{$name}";
+    /* Now pointing to src/assets/fonts/poppins/ */
+    src: url("../../fonts/poppins/#{$file}.woff2") format("woff2");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+

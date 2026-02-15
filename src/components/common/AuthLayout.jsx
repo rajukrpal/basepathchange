@@ -13,9 +13,9 @@ const AuthLayout = ({ children, illustration, title, subtitle, badgeText = "Vers
                     <div className="relative z-10 space-y-3">
                         <div className="inline-flex items-center space-x-2 rounded-full bg-white/15 px-3 py-1 backdrop-blur-md border border-white/10">
                             <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse"></span>
-                            <span className="text-[10px] font-bold text-white uppercase tracking-wider">{badgeText}</span>
+                            <span className="text-[10px] font-semibold text-white uppercase tracking-wider">{badgeText}</span>
                         </div>
-                        <h2 className="text-2xl xl:text-3xl font-black text-white leading-tight" dangerouslySetInnerHTML={{ __html: title }} />
+                        <h2 className="text-sm xl:text-base font-semibold text-white leading-tight" dangerouslySetInnerHTML={{ __html: title }} />
                         <p className="text-xs xl:text-sm text-orange-50/90 max-w-[280px] leading-relaxed">
                             {subtitle}
                         </p>
@@ -41,7 +41,7 @@ const AuthLayout = ({ children, illustration, title, subtitle, badgeText = "Vers
                                 </div>
                             ))}
                         </div>
-                        <p className="text-[10px] font-bold text-white/80 uppercase tracking-widest">10k+ Users</p>
+                        <p className="text-[10px] font-semibold text-white/80 uppercase tracking-widest">10k+ Users</p>
                     </div>
                 </div>
 
@@ -55,3 +55,4 @@ const AuthLayout = ({ children, illustration, title, subtitle, badgeText = "Vers
 };
 
 export default AuthLayout;
+
