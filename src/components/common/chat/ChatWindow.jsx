@@ -113,14 +113,14 @@ const ChatWindow = ({
                             )}
                         >
                             <div className={cn(
-                                "px-5 py-3.5 rounded-[24px] text-sm font-semibold shadow-sm",
+                                "px-5 py-3 rounded-[24px] text-[13px] font-medium shadow-sm",
                                 msg.sender === 'me' 
                                     ? "bg-[#F97316] text-white rounded-br-none shadow-orange-500/10" 
                                     : "bg-white text-gray-700 rounded-bl-none border border-gray-100/50"
                             )}>
                                 {msg.text}
                             </div>
-                            <span className="text-[10px] font-semibold text-gray-400 mt-1.5 mx-2 uppercase tracking-tighter">
+                            <span className="text-[10px] font-medium text-gray-400 mt-1.5 mx-2 uppercase tracking-tighter">
                                 {msg.timestamp}
                             </span>
                         </div>
@@ -142,7 +142,7 @@ const ChatWindow = ({
                         <Paperclip className="h-5 w-5" />
                     </Button>
                     <input 
-                        className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-sm font-semibold text-gray-700 placeholder:text-gray-400 px-2 h-10"
+                        className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-[13px] font-medium text-gray-700 placeholder:text-gray-400 px-2 h-10"
                         placeholder="Type your message..."
                         value={newMessage}
                         onChange={(e) => onNewMessageChange(e.target.value)}

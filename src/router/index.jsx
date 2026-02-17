@@ -22,6 +22,7 @@ import Settings from "@/pages/settings/Settings";
 import Notifications from "@/pages/notifications/Notifications";
 import Attendance from "@/pages/attendance/Attendance";
 import Chat from "@/pages/chat/Chat";
+import Inventory from "@/pages/inventory/Inventory";
 
 import Error from "@/pages/error/Error";
 
@@ -73,6 +74,10 @@ const router = createBrowserRouter(
                 {
                   path: "chat",
                   element: <Chat />,
+                },
+                {
+                  path: "inventory",
+                  element: <Inventory />,
                 },
               ],
             },

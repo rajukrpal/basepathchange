@@ -20,6 +20,8 @@ function paginationReducer(state, action) {
     case PAGINATION_DISPATCH_TYPES.PREV_PAGE:
       return { ...state, page: Math.max(1, (state.page || 1) - 1) };
     case PAGINATION_DISPATCH_TYPES.SET_TOTAL:
+      // Only update if total actually changed to avoid unnecessary re-renders
+      if (state.total === action.payload) return state;
       return { ...state, total: action.payload };
     default:
       return state;
@@ -33,6 +35,12 @@ export const PaginationProvider = ({ children, initialTotal = 0, initialLimit = 
     limit: initialLimit,
   });
 
+  // Keep total in sync with prop changes (e.g. search filtering)
+  useEffect(() => {
+    dispatch({ type: PAGINATION_DISPATCH_TYPES.SET_TOTAL, payload: initialTotal });
+  }, [initialTotal]);
+
+  // Stabilize the context value to prevent unnecessary child re-renders
   const value = useMemo(() => ({ state, dispatch }), [state]);
 
   return (
@@ -45,6 +53,7 @@ export const PaginationProvider = ({ children, initialTotal = 0, initialLimit = 
 export default function usePagination() {
   const context = useContext(PaginationContext);
   if (!context) {
+    // Return a stable object even if used outside provider (though not recommended)
     return {
         state: initialState,
         dispatch: () => {}
@@ -52,4 +61,3 @@ export default function usePagination() {
   }
   return context;
 }
-

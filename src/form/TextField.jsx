@@ -52,9 +52,9 @@ const TextField = ({
                         }
                       }}
                       className={cn(
-                        'h-[52px] min-h-[120px] rounded-[10px] bg-white px-6 pt-3 text-sm font-normal text-black placeholder:text-sm placeholder:font-light placeholder:text-[#8D8D8D] focus-visible:ring-1 focus-visible:ring-offset-0 sm:h-[58px] sm:placeholder:text-base md:text-base',
+                        'h-[52px] min-h-[120px] rounded-[10px] bg-white px-6 pt-3 text-sm font-normal text-black placeholder:text-sm placeholder:font-light placeholder:text-[#8D8D8D] focus-visible:ring-1 focus-visible:ring-offset-0 sm:h-[58px] sm:placeholder:text-base md:text-base border-gray-200 transition-all',
                         fieldError?.message
-                          ? 'text-red-500 focus-visible:ring-red-500'
+                          ? 'border-red-500 text-red-500 focus-visible:ring-red-500'
                           : 'text-primary focus-visible:border-[#F97316] focus-visible:ring-[#F97316]',
                         prefix ? 'pl-11 md:pl-12' : '',
                         postfix ? 'pr-11 md:pr-12' : '',
@@ -119,7 +119,7 @@ const TextField = ({
                 )}
               </FormItem>
               {fieldError?.message ? (
-                <div className="pt-1 pl-3 text-start text-xs font-normal text-red-500 sm:text-sm">
+                <div className="pt-1.5 pl-3 text-start text-[11px] font-normal text-red-500">
                   {fieldError?.message}
                 </div>
               ) : (

@@ -22,7 +22,8 @@ import {
   User,
   MoreHorizontal,
   Calendar,
-  MessageSquare
+  MessageSquare,
+  Box
 } from "lucide-react"
 
 import {
@@ -86,6 +87,11 @@ const data = {
       title: "Messages",
       url: "/chat",
       icon: MessageSquare,
+    },
+    {
+      title: "Inventory",
+      url: "/inventory",
+      icon: Box,
     },
   ],
   secondary: [

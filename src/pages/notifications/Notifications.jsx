@@ -1,12 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Bell, Info, ShieldAlert, Users, Package } from 'lucide-react';
+import { Card } from "@/components/ui/card";
+import { Bell, Info, ShieldAlert, Users, Package, Calendar as CalendarIcon, X } from 'lucide-react';
 import { generateNotifications } from '@/data/fakerData';
 import Datatable from '@/components/common/Datatable';
 import { PaginationProvider } from '@/hooks/usePagination.jsx';
 import usePagination from '@/hooks/usePagination.jsx';
 import { Badge } from "@/components/ui/badge";
 import { PAGINATION_DISPATCH_TYPES } from '@/utils/constants';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from 'date-fns';
 
 const NotificationsContent = ({ initialData }) => {
     const { state: { page, limit }, dispatch } = usePagination();
@@ -55,6 +58,26 @@ const NotificationsContent = ({ initialData }) => {
             ),
         },
         {
+            accessorKey: 'startDate',
+            header: 'Start Date',
+            cell: ({ row }) => (
+                <span className="text-[12px] font-medium text-gray-600">
+                    {row.original.startDate ? format(new Date(row.original.startDate), "dd MMM yyyy") : '-'}
+                </span>
+            ),
+            size: 130
+        },
+        {
+            accessorKey: 'endDate',
+            header: 'End Date',
+            cell: ({ row }) => (
+                <span className="text-[12px] font-medium text-gray-600">
+                    {row.original.endDate ? format(new Date(row.original.endDate), "dd MMM yyyy") : '-'}
+                </span>
+            ),
+            size: 130
+        },
+        {
             accessorKey: 'time',
             header: 'Received',
             cell: ({ row }) => (
@@ -62,7 +85,7 @@ const NotificationsContent = ({ initialData }) => {
                     {row.original.time}
                 </span>
             ),
-            size: 150
+            size: 120
         },
         {
             accessorKey: 'status',
@@ -87,7 +110,7 @@ const NotificationsContent = ({ initialData }) => {
                 columns={columns} 
                 tableName="Notifications"
                 pagination={true}
-                loading={initialData.length === 0}
+                loading={initialData.length === 0 && paginatedData.length === 0}
             />
         </div>
     );
@@ -95,19 +118,84 @@ const NotificationsContent = ({ initialData }) => {
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
         // Generate 60 fake notifications
         setNotifications(generateNotifications(60));
     }, []);
 
+    const filteredNotifications = useMemo(() => {
+        return notifications.filter(notification => {
+            const notifDate = new Date(notification.startDate);
+            if (startDate && notifDate < startDate) return false;
+            if (endDate) {
+                const end = new Date(endDate);
+                end.setHours(23, 59, 59, 999);
+                if (notifDate > end) return false;
+            }
+            return true;
+        });
+    }, [notifications, startDate, endDate]);
+
+    const clearFilters = () => {
+        setStartDate(null);
+        setEndDate(null);
+    };
+
     return (
-        <div className="flex flex-col h-[calc(100vh-64px-32px)] md:h-[calc(100vh-64px-48px)] lg:h-[calc(100vh-64px-64px)] animate-in fade-in duration-500 overflow-hidden">
+        <div className="flex flex-col h-[calc(100vh-64px-32px)] md:h-[calc(100vh-64px-48px)] lg:h-[calc(100vh-64px-64px)] animate-in fade-in duration-500 overflow-hidden gap-4">
+            {/* Filters Header */}
+            <div className="flex flex-wrap items-center justify-between gap-4 px-2">
+                <div className="flex items-center gap-4 flex-wrap">
+                    <div className="relative group">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 text-gray-400 group-focus-within:text-[#F97316] transition-colors">
+                            <CalendarIcon size={16} />
+                        </div>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            placeholderText="Start Date"
+                            className="h-10 pl-10 pr-4 rounded-xl border border-gray-200 bg-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all w-[150px] shadow-sm"
+                            dateFormat="dd/MM/yyyy"
+                            isClearable
+                        />
+                    </div>
+                    <div className="relative group">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 text-gray-400 group-focus-within:text-[#F97316] transition-colors">
+                            <CalendarIcon size={16} />
+                        </div>
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            placeholderText="End Date"
+                            className="h-10 pl-10 pr-4 rounded-xl border border-gray-200 bg-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all w-[150px] shadow-sm"
+                            dateFormat="dd/MM/yyyy"
+                            isClearable
+                            minDate={startDate}
+                        />
+                    </div>
+                    {(startDate || endDate) && (
+                        <button 
+                            onClick={clearFilters}
+                            className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        >
+                            <X size={14} />
+                            Clear Filters
+                        </button>
+                    )}
+                </div>
+                <div className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+                    Showing {filteredNotifications.length} Results
+                </div>
+            </div>
+
             {/* Main Table Card */}
             <Card className="flex-1 min-h-0 border-none shadow-sm rounded-[32px] bg-white flex flex-col overflow-hidden">
                 <div className="flex-1 min-h-0 flex flex-col pt-4">
-                    <PaginationProvider initialTotal={notifications.length} initialLimit={10}>
-                        <NotificationsContent initialData={notifications} />
+                    <PaginationProvider initialTotal={filteredNotifications.length} initialLimit={10}>
+                        <NotificationsContent initialData={filteredNotifications} />
                     </PaginationProvider>
                 </div>
             </Card>

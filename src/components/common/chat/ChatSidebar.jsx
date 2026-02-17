@@ -28,7 +28,7 @@ const ChatSidebar = ({
         )}>
             <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-base font-semibold text-gray-900 tracking-tight">Messages</h1>
+                    <h1 className="text-sm font-semibold text-gray-900 tracking-tight">Messages</h1>
                     <Button variant="ghost" size="icon" className="rounded-xl text-gray-400 cursor-pointer">
                         <MoreVertical className="h-5 w-5" />
                     </Button>
@@ -72,13 +72,13 @@ const ChatSidebar = ({
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-0.5">
                                 <h3 className={cn(
-                                    "text-sm font-semibold truncate",
+                                    "text-[13px] font-semibold truncate",
                                     contact.unreadCount > 0 ? "text-gray-900" : "text-gray-700"
                                 )}>{contact.name}</h3>
-                                <span className="text-[10px] font-semibold text-gray-400">{contact.time}</span>
+                                <span className="text-[10px] font-medium text-gray-400">{contact.time}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                                <p className="text-xs text-gray-400 truncate font-medium">{contact.lastMessage}</p>
+                                <p className="text-[11px] text-gray-400 truncate font-medium">{contact.lastMessage}</p>
                                 {contact.unreadCount > 0 && (
                                     <div className="h-4.5 min-w-[18px] px-1 rounded-full bg-[#F97316] flex items-center justify-center text-[10px] font-semibold text-white shadow-sm">
                                         {contact.unreadCount}

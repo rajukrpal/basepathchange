@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     LayoutDashboard, 
     FolderKanban, 
@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import TimeTracker from '@/components/dashboard/TimeTracker';
 
 import BorderButton from '@/components/common/BorderButton';
+import CreateProjectModal from '@/components/common/modal/CreateProjectModal';
 
 const stats = [
     { title: "Total Projects", value: "12", icon: FolderKanban, color: "text-blue-600", bg: "bg-blue-50", change: "+2 this month" },
@@ -31,6 +32,8 @@ const activeProjects = [
 ];
 
 const MainDashboard = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -38,10 +41,12 @@ const MainDashboard = () => {
                     <h1 className="text-lg font-semibold text-gray-900 tracking-tight">Project Overview</h1>
                     <p className="text-gray-500 font-medium">Welcome back, Raju! Here's what's happening with your projects today.</p>
                 </div>
-                <BorderButton icon={Plus}>
+                <BorderButton icon={Plus} onClick={() => setIsModalOpen(true)}>
                     New Project
                 </BorderButton>
             </div>
+
+            <CreateProjectModal open={isModalOpen} onOpenChange={setIsModalOpen} />
 
             {/* Time Tracking & Priority Section */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
